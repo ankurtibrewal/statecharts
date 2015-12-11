@@ -68,7 +68,7 @@ public class SGenNewFileWizard extends Wizard implements INewWizard {
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.selection = selection;
-		setWindowTitle("New YAKINDU SGen Model");
+		setWindowTitle("New Yakindu SGen Model");
 		setNeedsProgressMonitor(true);
 
 	}

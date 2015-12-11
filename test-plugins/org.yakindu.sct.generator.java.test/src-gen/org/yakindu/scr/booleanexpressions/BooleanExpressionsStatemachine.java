@@ -132,11 +132,15 @@ public class BooleanExpressionsStatemachine implements IBooleanExpressionsStatem
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_main_region_default();
 	}
 
 	public void exit() {
 		exitSequence_main_region();
+
+		exitAction();
 	}
 
 	/**
@@ -252,6 +256,10 @@ public class BooleanExpressionsStatemachine implements IBooleanExpressionsStatem
 		enterSequence_main_region_StateB_default();
 	}
 
+	/* Entry action for statechart 'BooleanExpressions'. */
+	private void entryAction() {
+	}
+
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_region_StateA() {
 		sCInterface.setMyBool1(true);
@@ -270,6 +278,10 @@ public class BooleanExpressionsStatemachine implements IBooleanExpressionsStatem
 		sCInterface.setEqual(sCInterface.myBool1 == sCInterface.myBool2);
 
 		sCInterface.setNotequal((sCInterface.myBool1 != sCInterface.myBool2));
+	}
+
+	/* Exit action for state 'BooleanExpressions'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state StateA */

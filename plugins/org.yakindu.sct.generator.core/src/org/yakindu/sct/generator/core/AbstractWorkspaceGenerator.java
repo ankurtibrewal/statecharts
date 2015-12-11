@@ -52,9 +52,5 @@ public abstract class AbstractWorkspaceGenerator implements IGeneratorBridge {
 	public final File getTargetFolder(GeneratorEntry entry) {
 		return bridge.getTargetFolder(entry);
 	}
-	
-	public final File getLibraryTargetFolder(GeneratorEntry entry) {
-		return bridge.getLibraryTargetFolder(entry);
-	}
 
 }

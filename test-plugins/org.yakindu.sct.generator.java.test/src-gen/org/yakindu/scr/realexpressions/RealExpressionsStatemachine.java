@@ -316,11 +316,15 @@ public class RealExpressionsStatemachine implements IRealExpressionsStatemachine
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_main_region_default();
 	}
 
 	public void exit() {
 		exitSequence_main_region();
+
+		exitAction();
 	}
 
 	/**
@@ -541,6 +545,10 @@ public class RealExpressionsStatemachine implements IRealExpressionsStatemachine
 		enterSequence_main_region_StateB_default();
 	}
 
+	/* Entry action for statechart 'RealExpressions'. */
+	private void entryAction() {
+	}
+
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_region_StateA() {
 		sCInterface.setMyReal1(5.3);
@@ -593,6 +601,10 @@ public class RealExpressionsStatemachine implements IRealExpressionsStatemachine
 
 		sCInterface
 				.setModuloAssign((-0.1 <= (sCInterface.assignMyReal1(sCInterface.getMyReal1() % sCInterface.myReal1))));
+	}
+
+	/* Exit action for state 'RealExpressions'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state StateA */

@@ -21,8 +21,6 @@ import org.yakindu.sct.model.sexec.extensions.StateVectorExtensions
 import org.yakindu.sct.model.sexec.naming.INamingService
 import org.yakindu.sct.model.sgen.GeneratorEntry
 import org.yakindu.sct.model.sgraph.Statechart
-import org.yakindu.sct.model.stext.stext.VariableDefinition
-import org.yakindu.sct.model.stext.stext.StatechartScope
 
 class StatemachineC {
 	
@@ -32,7 +30,6 @@ class StatemachineC {
 	@Inject extension ICodegenTypeSystemAccess
 	@Inject extension INamingService
 	@Inject extension FlowCode
-	@Inject extension ConstantInitializationResolver
 	@Inject protected extension StateVectorExtensions
 	
 	def generateStatemachineC(ExecutionFlow flow, Statechart sc, IFileSystemAccess fsa, GeneratorEntry entry) {
@@ -56,8 +53,6 @@ class StatemachineC {
 		*/
 		
 		«functionPrototypes»
-		
-		«constantDefinitions»
 		
 		«initFunction»
 		
@@ -264,7 +259,7 @@ class StatemachineC {
 			«ENDFOR»
 			
 			«FOR variable : scope.variableDefinitions»
-				«IF variable.const»const «ENDIF»«variable.type.targetLanguageName» «variable.asGetter»(const «scHandleDecl») {
+				«variable.type.targetLanguageName» «variable.asGetter»(const «scHandleDecl») {
 					return «variable.access»;
 				}
 				«IF !variable.readonly && !variable.const»
@@ -283,6 +278,7 @@ class StatemachineC {
 	/** */
 	def functionPrototypes(ExecutionFlow it) '''
 		/* prototypes of all internal functions */
+		
 		«checkFunctions.toPrototypes»
 		«effectFunctions.toPrototypes»
 		«entryActionFunctions.toPrototypes»
@@ -291,16 +287,10 @@ class StatemachineC {
 		«exitSequenceFunctions.toPrototypes»
 		«reactFunctions.toPrototypes»
 		static void «clearInEventsFctID»(«scHandleDecl»);
-		static void «clearOutEventsFctID»(«scHandleDecl»);	
+		static void «clearOutEventsFctID»(«scHandleDecl»);
+		
 	'''
-	
-	def constantDefinitions(ExecutionFlow it) '''
-		«FOR scope : scopes.filter(typeof(StatechartScope))»
-			«FOR d : scope.declarations.filter(typeof(VariableDefinition)).filter[const]»
-				«IF d.type.name != 'void'»const «d.type.targetLanguageName» «d.access» = «d.initialValue.resolveConstants»;«ENDIF»
-			«ENDFOR»
-		«ENDFOR»
-	'''
+	 
 	 
 	def toPrototypes(List<Step> steps) '''
 		«FOR s : steps»

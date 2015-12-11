@@ -26,7 +26,7 @@ class GenmodelEntries {
 	
 	def getLicenseText(GeneratorEntry it) {
 		if (licenseTextParameter != null) {
-			return "/* " + licenseTextParameter.stringValue.trim + " */"
+			return "/*"+licenseTextParameter.stringValue+"*/"
 		}
 		return null
 	}

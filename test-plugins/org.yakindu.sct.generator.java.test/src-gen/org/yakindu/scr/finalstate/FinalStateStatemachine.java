@@ -32,11 +32,15 @@ public class FinalStateStatemachine implements IFinalStateStatemachine {
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_main_region_default();
 	}
 
 	public void exit() {
 		exitSequence_main_region();
+
+		exitAction();
 	}
 
 	/**
@@ -89,6 +93,14 @@ public class FinalStateStatemachine implements IFinalStateStatemachine {
 		exitSequence_main_region_myState();
 
 		enterSequence_main_region__final__default();
+	}
+
+	/* Entry action for statechart 'FinalState'. */
+	private void entryAction() {
+	}
+
+	/* Exit action for state 'FinalState'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state myState */

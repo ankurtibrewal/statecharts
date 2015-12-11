@@ -50,6 +50,8 @@ public class StatechartLocalReactionsStatemachine implements IStatechartLocalRea
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_main_region_default();
 
 		enterSequence_region2_default();
@@ -59,6 +61,8 @@ public class StatechartLocalReactionsStatemachine implements IStatechartLocalRea
 		exitSequence_main_region();
 
 		exitSequence_region2();
+
+		exitAction();
 	}
 
 	/**
@@ -153,6 +157,14 @@ public class StatechartLocalReactionsStatemachine implements IStatechartLocalRea
 		exitSequence_main_region_S2();
 
 		enterSequence_main_region_S1_default();
+	}
+
+	/* Entry action for statechart 'StatechartLocalReactions'. */
+	private void entryAction() {
+	}
+
+	/* Exit action for state 'StatechartLocalReactions'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state S1 */

@@ -371,11 +371,15 @@ public class CKeywordsStatemachine implements ICKeywordsStatemachine {
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_auto_default();
 	}
 
 	public void exit() {
 		exitSequence_auto();
+
+		exitAction();
 	}
 
 	/**
@@ -635,6 +639,10 @@ public class CKeywordsStatemachine implements ICKeywordsStatemachine {
 		enterSequence_auto_loop_default();
 	}
 
+	/* Entry action for statechart 'CKeywords'. */
+	private void entryAction() {
+	}
+
 	/* Entry action for state 'char'. */
 	private void entryAction_auto_char() {
 		sCInterface.setCase(true);
@@ -743,6 +751,10 @@ public class CKeywordsStatemachine implements ICKeywordsStatemachine {
 		sCInterface.setVolatile(false);
 
 		sCInterface.setWhile(false);
+	}
+
+	/* Exit action for state 'CKeywords'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state char */

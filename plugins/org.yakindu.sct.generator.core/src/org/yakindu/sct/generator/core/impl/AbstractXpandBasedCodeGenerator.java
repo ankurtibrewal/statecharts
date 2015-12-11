@@ -11,7 +11,6 @@
 package org.yakindu.sct.generator.core.impl;
 
 import static org.yakindu.sct.generator.core.features.ICoreFeatureConstants.OUTLET_FEATURE_TARGET_FOLDER;
-import static org.yakindu.sct.generator.core.features.ICoreFeatureConstants.OUTLET_FEATURE_LIBRARY_TARGET_FOLDER;
 import static org.yakindu.sct.generator.core.util.GeneratorUtils.getOutletFeatureConfiguration;
 import static org.yakindu.sct.generator.core.util.GeneratorUtils.isDumpSexec;
 import static org.yakindu.sct.generator.core.util.GeneratorUtils.refreshTargetProject;
@@ -55,8 +54,6 @@ public abstract class AbstractXpandBasedCodeGenerator extends
 		AbstractSExecModelGenerator {
 
 	public static final String CONTEXT_INJECTOR_PROPERTY_NAME = "AbstractXpandBasedCodeGenerator.Injector";
-
-	public static final String LIBRARY_TARGET_FOLDER_OUTLET = "LIBRARY_TARGET_FOLDER";
 
 	public abstract String getTemplatePath();
 
@@ -122,31 +119,18 @@ public abstract class AbstractXpandBasedCodeGenerator extends
 
 	protected Output createOutput(GeneratorEntry entry) {
 		FeatureConfiguration outletConfig = getOutletFeatureConfiguration(entry);
-		
-		FeatureParameterValue targetFolderValue = outletConfig
+		FeatureParameterValue targetFolder = outletConfig
 				.getParameterValue(OUTLET_FEATURE_TARGET_FOLDER);
-		FeatureParameterValue libraryTargetFolderValue = outletConfig
-				.getParameterValue(OUTLET_FEATURE_LIBRARY_TARGET_FOLDER);
 
 		String absoluteTargetFolder = getTargetProject(entry).getLocation()
-				.toOSString() + File.separator + targetFolderValue.getExpression().toString();
-
+				.toOSString() + File.separator + targetFolder.getExpression().toString();
 		Output output = new OutputImpl();
-		
-		Outlet targetFolderOutlet = new Outlet(absoluteTargetFolder);
+		Outlet outlet = new Outlet(absoluteTargetFolder);
 		for (PostProcessor postProcessor : getPostProcessors()) {
-			targetFolderOutlet.addPostprocessor(postProcessor);
+			outlet.addPostprocessor(postProcessor);
 		}
-		targetFolderOutlet.setOverwrite(true);
-		output.addOutlet(targetFolderOutlet);
-
-		if(libraryTargetFolderValue != null){
-			String absoluteLibraryTargetFolder = getTargetProject(entry).getLocation()
-					.toOSString() + File.separator + libraryTargetFolderValue.getExpression().toString();
-			Outlet libraryTargetFolderOutlet = new Outlet(false, null, LIBRARY_TARGET_FOLDER_OUTLET, false, absoluteLibraryTargetFolder);
-			output.addOutlet(libraryTargetFolderOutlet);
-		}
-		
+		outlet.setOverwrite(true);
+		output.addOutlet(outlet);
 		return output;
 	}
 

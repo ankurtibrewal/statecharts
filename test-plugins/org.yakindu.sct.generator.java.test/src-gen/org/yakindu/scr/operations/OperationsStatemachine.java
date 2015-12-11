@@ -81,11 +81,15 @@ public class OperationsStatemachine implements IOperationsStatemachine {
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_main_region_default();
 	}
 
 	public void exit() {
 		exitSequence_main_region();
+
+		exitAction();
 	}
 
 	/**
@@ -182,6 +186,10 @@ public class OperationsStatemachine implements IOperationsStatemachine {
 		enterSequence_main_region_B_default();
 	}
 
+	/* Entry action for statechart 'Operations'. */
+	private void entryAction() {
+	}
+
 	/* Entry action for state 'B'. */
 	private void entryAction_main_region_B() {
 		operationCallback.internalOperation1();
@@ -237,6 +245,10 @@ public class OperationsStatemachine implements IOperationsStatemachine {
 		sCInterface.operationCallback.unnamedOperation5();
 
 		sCInterface.operationCallback.unnamedOperation5a("");
+	}
+
+	/* Exit action for state 'Operations'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state B */

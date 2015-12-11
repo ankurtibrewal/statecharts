@@ -156,11 +156,15 @@ public class StringExpressionsStatemachine implements IStringExpressionsStatemac
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_main_region_default();
 	}
 
 	public void exit() {
 		exitSequence_main_region();
+
+		exitAction();
 	}
 
 	/**
@@ -596,6 +600,10 @@ public class StringExpressionsStatemachine implements IStringExpressionsStatemac
 		react_main_region__choice_10();
 	}
 
+	/* Entry action for statechart 'StringExpressions'. */
+	private void entryAction() {
+	}
+
 	/* Entry action for state 'AssignmentChecked'. */
 	private void entryAction_main_region_AssignmentChecked() {
 		sCInterface.setStringVarNotEqual(!(sCInterface.stringA == null
@@ -605,6 +613,10 @@ public class StringExpressionsStatemachine implements IStringExpressionsStatemac
 		sCInterface.setStringVarEqual(!(sCInterface.stringA == null
 				? sCInterface.stringA2 != null
 				: !sCInterface.stringA.equals(sCInterface.stringA2)));
+	}
+
+	/* Exit action for state 'StringExpressions'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state AssignmentChecked */

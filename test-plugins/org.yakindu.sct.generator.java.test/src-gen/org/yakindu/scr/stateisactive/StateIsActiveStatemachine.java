@@ -49,6 +49,8 @@ public class StateIsActiveStatemachine implements IStateIsActiveStatemachine {
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_R1_default();
 
 		enterSequence_R2_default();
@@ -58,6 +60,8 @@ public class StateIsActiveStatemachine implements IStateIsActiveStatemachine {
 		exitSequence_R1();
 
 		exitSequence_R2();
+
+		exitAction();
 	}
 
 	/**
@@ -135,6 +139,14 @@ public class StateIsActiveStatemachine implements IStateIsActiveStatemachine {
 		exitSequence_R2_R2A();
 
 		enterSequence_R2_R2B_default();
+	}
+
+	/* Entry action for statechart 'StateIsActive'. */
+	private void entryAction() {
+	}
+
+	/* Exit action for state 'StateIsActive'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state R1A */

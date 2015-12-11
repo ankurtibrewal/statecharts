@@ -63,11 +63,15 @@ public class EnterStateStatemachine implements IEnterStateStatemachine {
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_r_default();
 	}
 
 	public void exit() {
 		exitSequence_r();
+
+		exitAction();
 	}
 
 	/**
@@ -162,6 +166,14 @@ public class EnterStateStatemachine implements IEnterStateStatemachine {
 		exitSequence_r_A();
 
 		enterSequence_r_B_g();
+	}
+
+	/* Entry action for statechart 'EnterState'. */
+	private void entryAction() {
+	}
+
+	/* Exit action for state 'EnterState'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state A */

@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2015 committers of YAKINDU and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * Contributors:
+ * 	committers of YAKINDU - initial API and implementation
+ * 
+ */
 package org.yakindu.sct.model.sexec.transformation
 
 import java.util.ArrayList
@@ -41,10 +51,7 @@ class FlowOptimizer {
 		
 		// first replace all 'if true' steps by then step.
 		flow.replaceTrueIfs
-		
-		// we don't need empty functions
-		flow.eliminateEmptySequences
-		
+		 
 		// perform inlining
 		if (_inlineReactions) {
 			flow.inlineReactionChecks	
@@ -72,28 +79,10 @@ class FlowOptimizer {
 	}
 	
 	
-	/** Replaces all true if steps by then step. */
+	// REPLACE TRUE IF STEPS
 	def replaceTrueIfs(ExecutionFlow flow) {
 		flow.eAllContents.filter(typeof(If)).filter( i | i.check.alwaysTrue ).forEach( i | i.substituteBy(i.thenStep) );
 	}
-	
-	
-	/** Determines and removes all empty sequences that are not part of a parent step from the model */
-	def eliminateEmptySequences(ExecutionFlow flow) {
-		var allReactSequences = flow.states.map( state | state.reactSequence ) 
-		var emptySeqences = flow.eAllContents.filter(typeof(Sequence)).filter( s | s.empty ).toList
-		emptySeqences.removeAll(allReactSequences)
-		
-		emptySeqences.forEach( s | { 
-			val callList = s.caller.toList.clone 
-			callList.forEach( c | { c.eContainer.substituteCall(c, null)
-			
-			callList.forEach[ call | call.step = null]
-			})
-		})
-	}
-	
-	
 	
 	def substituteBy(Step orig, Step substitute) {
 		orig.eContainer.substitute(orig, substitute)
@@ -231,10 +220,7 @@ class FlowOptimizer {
 
 	def dispatch boolean substituteCall(Sequence owner, Call call, Step step) {
 		if ( owner.steps.contains(call) ) { 
-			if ( step != null )
-				owner.steps.set(owner.steps.indexOf(call), step)
-			else 
-				owner.steps.remove(owner.steps.indexOf(call))
+			owner.steps.set(owner.steps.indexOf(call), step)
 			return true
 		}
 		

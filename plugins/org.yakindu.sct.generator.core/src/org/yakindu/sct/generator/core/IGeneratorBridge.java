@@ -34,6 +34,4 @@ public interface IGeneratorBridge {
 	File getTargetProject(GeneratorEntry entry);
 
 	File getTargetFolder(GeneratorEntry entry);
-	
-	File getLibraryTargetFolder(GeneratorEntry entry);
 }

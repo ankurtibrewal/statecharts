@@ -95,6 +95,8 @@ public class DeepEntryStatemachine implements IDeepEntryStatemachine {
 			throw new IllegalStateException(
 					"The statemachine needs to be initialized first by calling the init() function.");
 
+		entryAction();
+
 		enterSequence_r_default();
 
 		enterSequence_r2_default();
@@ -108,6 +110,8 @@ public class DeepEntryStatemachine implements IDeepEntryStatemachine {
 		exitSequence_r2();
 
 		exitSequence_r3();
+
+		exitAction();
 	}
 
 	/**
@@ -240,6 +244,10 @@ public class DeepEntryStatemachine implements IDeepEntryStatemachine {
 		enterSequence_r2_B_default();
 	}
 
+	/* Entry action for statechart 'DeepEntry'. */
+	private void entryAction() {
+	}
+
 	/* Entry action for state 'A'. */
 	private void entryAction_r_A() {
 		sCInterface.setX(sCInterface.getX() + 1);
@@ -258,6 +266,10 @@ public class DeepEntryStatemachine implements IDeepEntryStatemachine {
 	/* Entry action for state 'DA'. */
 	private void entryAction_r3_D_r_DA() {
 		sCInterface.setZ(sCInterface.getZ() + 1);
+	}
+
+	/* Exit action for state 'DeepEntry'. */
+	private void exitAction() {
 	}
 
 	/* 'default' enter sequence for state B */

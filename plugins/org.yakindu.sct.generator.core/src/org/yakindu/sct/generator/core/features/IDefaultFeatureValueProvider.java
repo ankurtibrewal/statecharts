@@ -24,12 +24,10 @@ import org.yakindu.sct.model.sgen.FeatureTypeLibrary;
  */
 public interface IDefaultFeatureValueProvider {
 
-	public FeatureConfiguration createDefaultFeatureConfiguration(
-			FeatureType type, EObject contextElement);
-	
+	public FeatureConfiguration createDefaultFeatureConfiguration(FeatureType type, EObject contextElement);
+
 	public IStatus validateParameterValue(FeatureParameterValue value);
 
 	public boolean isProviderFor(FeatureTypeLibrary library);
-	
-	
+
 }
