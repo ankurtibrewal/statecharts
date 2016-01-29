@@ -14,6 +14,7 @@ package org.yakindu.base.expressions.validation;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.yakindu.base.expressions.expressions.Expression;
 import org.yakindu.base.types.ComplexType;
@@ -25,6 +26,7 @@ import org.yakindu.base.types.TypesPackage;
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer;
 import org.yakindu.base.types.typesystem.ITypeSystem;
 import org.yakindu.base.types.validation.IValidationIssueAcceptor;
+import org.yakindu.sct.domain.extension.DomainRegistry;
 
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
@@ -58,14 +60,20 @@ public class ExpressionsJavaValidator extends org.yakindu.base.expressions.valid
 	@Inject
 	private GenericsPrettyPrinter printer;
 
-	@Inject
-	private ITypeSystemInferrer typeInferrer;
-	@Inject
-	private ITypeSystem typeSystem;
-
+	//TODO not good
+	public ITypeSystem getTypeSystem(EObject context){
+		return DomainRegistry.getDomainDescriptor(context).getDomainInjectorProvider().getResourceInjector().getInstance(ITypeSystem.class);
+	
+	}
+	
+	public ITypeSystemInferrer getTypeInferrer(EObject context){
+		return DomainRegistry.getDomainDescriptor(context).getDomainInjectorProvider().getResourceInjector().getInstance(ITypeSystemInferrer.class);
+	}
+	
+	
 	@Check
 	public void checkExpression(Expression expression) {
-		typeInferrer.inferType(expression, this);
+		getTypeInferrer(expression).inferType(expression, this);
 	}
 
 	public void accept(ValidationIssue issue) {
@@ -151,7 +159,7 @@ public class ExpressionsJavaValidator extends org.yakindu.base.expressions.valid
 			TypeParameter parameter = typeParameter.get(i);
 			if (parameter.getBound() != null) {
 				Type argument = typedElement.getTypeArguments().get(i);
-				if (!typeSystem.isSuperType(parameter.getBound(), argument)) {
+				if (!getTypeSystem(typedElement).isSuperType(parameter.getBound(), argument)) {
 					error(String.format(ERROR_BOUND_MISSMATCH_MSG, argument.getName(),
 							(parameter.getBound()).getName(), type.getName()), typedElement,
 							TypesPackage.Literals.TYPED_ELEMENT__TYPE_ARGUMENTS, i, ERROR_BOUND_MISSMATCH_CODE);

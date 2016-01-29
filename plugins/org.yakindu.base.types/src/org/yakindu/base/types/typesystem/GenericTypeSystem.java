@@ -28,6 +28,7 @@ public class GenericTypeSystem extends AbstractTypeSystem {
 		declarePrimitive(BOOLEAN);
 		declarePrimitive(VOID);
 		declarePrimitive(NULL);
+		declarePrimitive("UnsupportedType");
 
 		declareSuperType(getType(INTEGER), getType(REAL));
 		

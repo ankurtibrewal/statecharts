@@ -113,8 +113,6 @@ import com.google.inject.name.Named;
 public class STextJavaValidator extends AbstractSTextJavaValidator implements STextValidationMessages {
 
 	@Inject
-	private ITypeSystemInferrer typeInferrer;
-	@Inject
 	private STextGrammarAccess grammarAccess;
 	@Inject
 	private IQualifiedNameProvider nameProvider;
@@ -130,17 +128,17 @@ public class STextJavaValidator extends AbstractSTextJavaValidator implements ST
 	public void checkExpression(VariableDefinition expression) {
 		if (expression.getType() == null || expression.getType().eIsProxy())
 			return;
-		typeInferrer.inferType(expression, this);
+		getTypeInferrer(expression).inferType(expression, this);
 	}
 
 	@Check
 	public void checkExpression(TimeEventSpec expression) {
-		typeInferrer.inferType(expression, this);
+		getTypeInferrer(expression).inferType(expression, this);
 	}
 
 	@Check
 	public void checkExpression(Guard expression) {
-		typeInferrer.inferType(expression, this);
+		getTypeInferrer(expression).inferType(expression, this);
 	}
 
 	@Check(CheckType.FAST)

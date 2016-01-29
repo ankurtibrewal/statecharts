@@ -21,6 +21,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.yakindu.base.types.Property;
+import org.yakindu.base.types.Type;
 import org.yakindu.base.types.TypesPackage;
 
 /**
@@ -147,7 +148,9 @@ public class PropertyItemProvider
 		Property variable = (Property)object;
 		StringBuilder builder = new StringBuilder(variable.getName());
 		builder.append(" : ");
-		builder.append(variable.getType().getName());
+		Type type = variable.getType();
+		if (type != null)
+			builder.append(type.getName());
 		return builder.toString();
 	}
 
