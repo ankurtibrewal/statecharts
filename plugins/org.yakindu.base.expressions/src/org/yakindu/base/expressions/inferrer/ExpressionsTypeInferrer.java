@@ -184,8 +184,6 @@ public class ExpressionsTypeInferrer extends AbstractTypeSystemInferrer implemen
 		return type;
 	}
 
-	// TODO: How to handle TypeAlias, like in C as weak types or like Lint
-	// strong types?
 	public Object infer(TypeAlias typeAlias) {
 		return inferTypeDispatch(typeAlias.getType());
 	}
