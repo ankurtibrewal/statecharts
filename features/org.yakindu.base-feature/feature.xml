@@ -22,10 +22,6 @@
    </url>
 
    <includes
-         id="org.yakindu.base.gmf.runtime"
-         version="0.0.0"/>
-
-   <includes
          id="org.yakindu.base.xtext.utils.gmf"
          version="0.0.0"/>
 
@@ -62,5 +58,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.yakindu.base.gmf.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

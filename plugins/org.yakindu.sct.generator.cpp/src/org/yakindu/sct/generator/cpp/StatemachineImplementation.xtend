@@ -97,6 +97,7 @@ class StatemachineImplementation {
 			«ENDIF»
 			
 			stateConfVectorPosition = 0;
+			mRunningCycle = false;
 			
 			«IF timed»
 				«timerInstance» = null;
@@ -209,6 +210,7 @@ class StatemachineImplementation {
 		def runCycleFunction(ExecutionFlow it) '''
 		void «module»::runCycle()
 		{
+			mRunningCycle = true; 
 			runCycleIntern(); 
 			while (!InternalEventQueue.empty())
 			{
@@ -216,6 +218,7 @@ class StatemachineImplementation {
 				InternalEventQueue.pop_front();
 				runCycleIntern(); 
 			}
+			mRunningCycle = false; 
 		}
 	'''
 	
@@ -318,7 +321,9 @@ class StatemachineImplementation {
 				«IF scope.defaultInterface»
 					void «module»::«event.asRaiser»(«event.valueParams»)
 					{
-						«scope.instance».«event.asRaiser»(«IF event.hasValue»value«ENDIF»);
+						InternalEventQueue.push_back(std::bind(&«scope.interfaceName»::«event.asRaiser»,&«scope.instance»«IF event.hasValue»,value«ENDIF»));
+						if (!mRunningCycle)
+							runCycle(); 
 					}
 					
 				«ENDIF»

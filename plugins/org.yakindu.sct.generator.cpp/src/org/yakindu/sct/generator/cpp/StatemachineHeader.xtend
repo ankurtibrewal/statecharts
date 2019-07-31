@@ -89,6 +89,7 @@ class StatemachineHeader extends org.yakindu.sct.generator.c.StatemachineHeader 
 				«prototypes»
 			private:
 			void runCycleIntern();
+			bool mRunningCycle; 
 			std::deque<std::function<void()>> InternalEventQueue; 	
 		};
 		«IF !entry.useStaticOPC»
